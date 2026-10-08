@@ -1,0 +1,143 @@
+/* ==========================================================================
+   smooth.css — Gerakan lebih halus + isi sisi belakang kartu
+   Dimuat paling akhir agar menimpa aturan sebelumnya.
+   ========================================================================== */
+
+/* Balik kartu: easing lembut tanpa pantulan berlebihan */
+.inner {
+  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Beritahu browser elemen mana yang akan bergerak -> dirender di GPU */
+.idc,
+.inner,
+.blob,
+#branch {
+  will-change: transform;
+}
+
+/* Batasi area render ulang supaya animasi tidak membebani seluruh halaman */
+.panel,
+.cb-panel {
+  contain: layout style;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Sisi belakang kartu ---------- */
+.face.back .k-bk {
+  top: 5.2em;
+  align-items: flex-start;
+  gap: 0.9em;
+}
+
+.face.back .k-qr {
+  width: 5.6em;
+  height: 5.6em;
+  padding: 0.3em;
+}
+
+.k-info {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.22em 0.7em;
+  font-size: 0.7em;
+  line-height: 1.25;
+}
+
+.k-info dt {
+  opacity: 0.75;
+  font-weight: 600;
+}
+
+.k-info dd {
+  margin: 0;
+  min-width: 0;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.k-foot2 {
+  position: absolute;
+  left: 1.3em;
+  right: 1.3em;
+  bottom: 0.9em;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8em;
+  font-size: 0.62em;
+  opacity: 0.9;
+}
+
+.k-foot2 span:first-child {
+  font:
+    700 1.15em ui-monospace,
+    Menlo,
+    monospace;
+  letter-spacing: 0.06em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    transition: none;
+  }
+}
+
+/* ---------- Perbaikan flip ----------
+   Jika .face memakai preserve-3d, anak-anaknya tetap terlihat (terbalik) saat
+   kartu dibalik. Dengan flat, seluruh isi sisi depan ikut tersembunyi. */
+.face {
+  transform-style: flat;
+}
+
+/* ---------- Chat: latar lebih pekat agar teks mudah dibaca ---------- */
+.cb-panel {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.cb-r.b .cb-m {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+[data-theme="dark"] .cb-panel {
+  background: rgba(42, 18, 38, 0.92);
+}
+
+[data-theme="dark"] .cb-r.b .cb-m {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ---------- Perbaikan utama flip ----------
+   Animasi masuk kartu (cin) memakai fill-mode "both", sehingga properti
+   scale/translate tetap "aktif" selamanya dan membuat Chrome meratakan efek 3D
+   (sisi belakang kartu tidak pernah terlihat). "backwards" cukup untuk
+   menahan keadaan awal sebelum animasi mulai. */
+.inner {
+  animation-fill-mode: backwards;
+}
+
+/* Footer sisi belakang: nomor kartu satu baris, catatan boleh membungkus */
+.k-foot2 span:first-child {
+  white-space: nowrap;
+}
+
+.k-foot2 span:last-child {
+  max-width: 60%;
+  text-align: right;
+  line-height: 1.3;
+}
+
+/* Jadwal + lokasi boleh dua baris agar tidak terpotong */
+#bJd {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

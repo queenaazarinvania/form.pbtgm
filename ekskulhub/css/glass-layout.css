@@ -1,0 +1,372 @@
+/* ===== Form lebih transparan + efek ===== */
+.panel {
+  position: relative;
+  background: rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(18px) saturate(190%);
+  backdrop-filter: blur(18px) saturate(190%);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+[data-theme="dark"] .panel {
+  background: rgba(255, 255, 255, 0.045);
+}
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    320px circle at var(--px, 50%) var(--py, 0%),
+    rgba(255, 255, 255, 0.4),
+    transparent 60%
+  );
+  mix-blend-mode: soft-light;
+}
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--ang),
+    transparent 0 60%,
+    rgba(255, 255, 255, 0.9) 78%,
+    rgba(255, 170, 205, 0.9) 88%,
+    transparent
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  animation: rim 6s linear infinite;
+}
+input,
+select {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+[data-theme="dark"] input,
+[data-theme="dark"] select {
+  background: rgba(255, 255, 255, 0.05);
+}
+input:focus,
+select:focus {
+  background: rgba(255, 255, 255, 0.34);
+}
+.row::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #ff9ab8, #e0457b, #ffc46b);
+  transform: scaleX(0);
+  transition: transform 0.4s cubic-bezier(0.3, 1.4, 0.5, 1);
+  pointer-events: none;
+}
+.row:focus-within::after {
+  transform: scaleX(1);
+}
+.row:focus-within input,
+.row:focus-within select {
+  transform: translateY(-1px);
+}
+.panel > * {
+  animation: up 0.65s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+@keyframes up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+.panel.shake {
+  animation: sk 0.45s;
+}
+
+/* ===== Responsif ===== */
+@media (max-width: 900px) {
+  .wrap {
+    gap: 2.2rem;
+  }
+}
+@media (max-width: 600px) {
+  body {
+    padding: 4.6rem 0.8rem 6.5rem;
+  }
+  .brand small {
+    display: none;
+  }
+  #gwrap,
+  #ghost {
+    width: 150px;
+    height: 150px;
+  }
+  #gwrap {
+    margin-bottom: -46px;
+  }
+  .panel {
+    padding: 1.15rem;
+    border-radius: 24px;
+  }
+  h1 {
+    font-size: 1.35rem;
+  }
+  #branch {
+    width: 64vw;
+  }
+  .top {
+    padding-inline: 14px;
+  }
+}
+@media (min-width: 1200px) {
+  .scene {
+    width: 380px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene,
+  .scene::after,
+  .sw,
+  .k-fl,
+  .fbg::after,
+  .panel::after,
+  .k-nfc i,
+  .spk,
+  .panel > * {
+    animation: none;
+  }
+  .inner {
+    transition: none;
+  }
+}
+#gwrap {
+  margin-bottom: -18px;
+}
+@media (max-width: 600px) {
+  #gwrap {
+    margin-bottom: -14px;
+  }
+}
+/* ===== GACOR: halus, jernih, banyak efek ===== */
+body {
+  background: linear-gradient(135deg, #ffe4ee, #ffc6db 28%, #ffd9cc 52%, #ffb7d1 78%, #ffe4ee) 0
+    0/300% 300% fixed;
+  animation: bgm 22s ease-in-out infinite alternate;
+}
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, #2d0f28, #44183c 30%, #2a0f27 58%, #521d46 82%, #2d0f28) 0
+    0/300% 300% fixed;
+}
+@keyframes bgm {
+  to {
+    background-position: 100% 100%;
+  }
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: 100% 0;
+  mix-blend-mode: soft-light;
+  background: conic-gradient(
+    from 195deg at 100% 0%,
+    transparent 0 9%,
+    rgba(255, 255, 255, 0.4) 13%,
+    transparent 19%,
+    rgba(255, 255, 255, 0.28) 25%,
+    transparent 32%,
+    rgba(255, 255, 255, 0.32) 39%,
+    transparent 47%
+  );
+  animation: ray 11s ease-in-out infinite alternate;
+}
+@keyframes ray {
+  to {
+    transform: rotate(7deg);
+    opacity: 0.55;
+  }
+}
+/* kartu: isi rata, tidak menonjol */
+.z2,
+.z3 {
+  transform: none;
+}
+.idc,
+.idc.rest {
+  transition: none;
+  will-change: transform;
+}
+.idc .nm {
+  text-shadow: none;
+}
+.k-ph .ph {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.k-fl {
+  color: rgba(255, 255, 255, 0.12);
+}
+.k-wm {
+  opacity: 0.16;
+}
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  border-radius: 42%;
+  background: radial-gradient(closest-side, var(--c2), transparent 72%);
+  opacity: 0.5;
+  filter: blur(26px);
+  z-index: -1;
+  animation: gl 3.6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes gl {
+  to {
+    transform: scale(1.1);
+    opacity: 0.28;
+  }
+}
+.inner {
+  animation: cin 1.2s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+}
+@keyframes cin {
+  from {
+    opacity: 0;
+    scale: 0.82;
+    translate: 0 46px;
+  }
+}
+/* form: makin bening */
+.panel {
+  background: rgba(255, 255, 255, 0.055);
+  -webkit-backdrop-filter: blur(14px) saturate(210%) brightness(1.04);
+  backdrop-filter: blur(14px) saturate(210%) brightness(1.04);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 24px 60px rgba(168, 50, 100, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.25);
+}
+[data-theme="dark"] .panel {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+input,
+select {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.75);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    box-shadow 0.3s,
+    transform 0.3s;
+}
+[data-theme="dark"] input,
+[data-theme="dark"] select {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+input:focus,
+select:focus {
+  background: rgba(255, 255, 255, 0.28);
+}
+.panel label,
+.panel h1,
+.panel .sub,
+.panel .pt,
+.panel .hint {
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.75);
+}
+[data-theme="dark"] .panel label,
+[data-theme="dark"] .panel h1,
+[data-theme="dark"] .panel .sub,
+[data-theme="dark"] .panel .pt,
+[data-theme="dark"] .panel .hint {
+  text-shadow: none;
+}
+.row.ok input {
+  animation: okp 0.8s;
+}
+@keyframes okp {
+  0% {
+    box-shadow: 0 0 0 0 rgba(43, 185, 154, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgba(43, 185, 154, 0);
+  }
+}
+.go {
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2),
+    box-shadow 0.3s,
+    background 0.3s;
+}
+.go::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  animation: swp 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .panel {
+    background: rgba(255, 240, 246, 0.82);
+  }
+  [data-theme="dark"] .panel {
+    background: rgba(48, 20, 44, 0.9);
+  }
+  input,
+  select {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  [data-theme="dark"] input,
+  [data-theme="dark"] select {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+@media (max-width: 600px) {
+  .scene::before {
+    filter: blur(18px);
+  }
+  body::before {
+    opacity: 0.7;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body,
+  body::before,
+  .scene::before,
+  .inner,
+  .go::before {
+    animation: none;
+  }
+}
+.panel .hl {
+  text-shadow: none;
+  background-image: linear-gradient(90deg, #c9356a, #ee5f95, #c9356a);
+  background-size: 200% auto;
+}
+[data-theme="dark"] .panel .hl {
+  background-image: linear-gradient(90deg, #ff7aa8, #ffc2d8, #ff7aa8);
+}

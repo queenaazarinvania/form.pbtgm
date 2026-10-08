@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffc2d8" />
+    <title>Daftar Anggota — EkskulHub</title>
+    <meta
+      name="description"
+      content="Daftar jadi anggota ekstrakurikuler EkskulHub SMA 1 Prestasi Bangsa dengan kartu anggota interaktif."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%8C%B8%3C/text%3E%3C/svg%3E"
+    />
+    <script>
+      try {
+        if (matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/chatbot.css" />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/card.css" />
+    <link rel="stylesheet" href="css/glass-layout.css" />
+    <link rel="stylesheet" href="css/improvements.css" />
+    <link rel="stylesheet" href="css/smooth.css" />
+  </head>
+  <body>
+    <div class="blob a" id="ba"></div>
+    <div class="blob b" id="bb"></div>
+    <canvas id="skB" aria-hidden="true"></canvas
+    ><svg id="branch" viewBox="0 0 400 300" aria-hidden="true"></svg
+    ><canvas id="skF" aria-hidden="true"></canvas>
+    <header class="top">
+      <div class="brand">
+        <span class="mark">E</span><span>EkskulHub<small>SMA 1 Prestasi Bangsa</small></span>
+      </div>
+      <div class="tools">
+        <button class="fx" id="fxBtn" aria-label="Mode hemat efek" aria-pressed="false">🌸</button
+        ><button class="fx" id="theme" aria-label="Ganti tema">🌙</button>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <section class="stage" aria-label="Pratinjau kartu anggota">
+        <div class="say" id="say">Halo! Isi formulirnya, kartu anggotamu jadi duluan.</div>
+        <div
+          id="gwrap"
+          role="button"
+          tabindex="0"
+          aria-label="Casper si hantu. Klik atau seret dia"
+        >
+          <svg id="ghost" viewBox="0 0 200 200" aria-hidden="true">
+            <g id="gb" fill="#fff" stroke="#9aa5bd" stroke-width="3" stroke-linejoin="round">
+              <path
+                d="M 54,181 C 44,131 13,11 99,11 185,12 164,110 150,182 146,195 139,185 137,177 134,170 126,169 124,179 120,192 114,190 109,179 105,167 98,166 94,179 92,185 85,193 79,179 74,170 68,168 66,179 62,193 56,191 54,181 Z"
+              />
+              <g id="eyes" stroke="none">
+                <path
+                  fill="#fff"
+                  stroke="#dbe3f3"
+                  stroke-width="1.5"
+                  d="M 69,71 C 69,64 73,54 84,55 96,56 100,62 100,70 100,79 89,83 84,83 78,83 69,80 69,71 Z"
+                />
+                <path
+                  fill="#fff"
+                  stroke="#dbe3f3"
+                  stroke-width="1.5"
+                  d="M 105,73 C 104,66 108,57 120,57 130,57 134,65 134,71 134,80 125,85 119,85 114,85 105,82 105,73 Z"
+                />
+                <circle id="pr" class="pupil" cx="85" cy="69" r="5.2" fill="#0f1a30" />
+                <circle id="pl" class="pupil" cx="120" cy="71" r="5.2" fill="#0f1a30" />
+              </g>
+              <ellipse class="cheek" cx="66" cy="100" rx="9" ry="5" fill="#ff9eb5" stroke="none" />
+              <ellipse class="cheek" cx="138" cy="102" rx="9" ry="5" fill="#ff9eb5" stroke="none" />
+              <path
+                id="mouth"
+                d="M 75,115 C 79,120 91,126 101,125 110,125 126,118 127,114 125,117 117,125 101,125 85,126 79,117 75,115 Z"
+                fill="#e0607e"
+                stroke="#9c2f4a"
+              />
+              <path id="armR" class="arm" d="M 45,89 C 25,92 9,108 11,124 13,141 27,115 48,119" />
+              <path
+                id="armL"
+                class="arm"
+                style="animation-delay: -1s"
+                d="M 155,88 C 191,90 194,114 192,125 191,137 172,109 155,116"
+              />
+              <g id="cap" stroke="none">
+                <path fill="#1e3fb0" d="M 80,24 L 80,38 C 92,47 108,47 120,38 L 120,24 Z" />
+                <path fill="#2f5ef0" d="M 56,22 L 100,5 L 144,22 L 100,39 Z" />
+                <path
+                  d="M 138,24 L 140,50"
+                  stroke="#22c1a0"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                />
+                <circle cx="140" cy="52" r="4" fill="#22c1a0" />
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div
+          class="scene"
+          id="scene"
+          tabindex="0"
+          role="button"
+          aria-label="Kartu anggota. Ketuk untuk membalik kartu"
+        >
+          <div class="idc" id="idc">
+            <div class="inner" id="inner">
+              <div class="face front">
+                <div class="fbg">
+                  <i class="foil"></i><i class="waves"></i
+                  ><svg class="k-fl" viewBox="-30 -30 60 60" aria-hidden="true">
+                    <path
+                      transform="rotate(0)"
+                      d="M0-2C-9-7-10-22-3-26L0-22 3-26C10-22 9-7 0-2Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      transform="rotate(72)"
+                      d="M0-2C-9-7-10-22-3-26L0-22 3-26C10-22 9-7 0-2Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      transform="rotate(144)"
+                      d="M0-2C-9-7-10-22-3-26L0-22 3-26C10-22 9-7 0-2Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      transform="rotate(216)"
+                      d="M0-2C-9-7-10-22-3-26L0-22 3-26C10-22 9-7 0-2Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      transform="rotate(288)"
+                      d="M0-2C-9-7-10-22-3-26L0-22 3-26C10-22 9-7 0-2Z"
+                      fill="currentColor"
+                    /></svg
+                  ><span class="k-wm" id="cWm">🌸</span><i class="sw"></i><i class="glare"></i>
+                </div>
+                <div class="k-top z2">
+                  <span class="mark">E</span><b>EkskulHub</b><small>KARTU ANGGOTA</small>
+                </div>
+                <div class="k-mid z3">
+                  <div class="k-ph">
+                    <div class="ph">
+                      <svg viewBox="0 0 60 70" width="100%" height="100%">
+                        <path
+                          d="M 10,66 C 8,40 4,8 30,8 56,8 52,38 50,66 L 44,60 38,66 30,60 22,66 16,60 Z"
+                          fill="#fff"
+                        />
+                        <circle cx="23" cy="30" r="4" fill="#0f1a30" />
+                        <circle cx="38" cy="30" r="4" fill="#0f1a30" />
+                        <path
+                          d="M 22,42 Q 30,49 39,42"
+                          stroke="#e0607e"
+                          stroke-width="3"
+                          fill="none"
+                          stroke-linecap="round"
+                        />
+                        <path d="M 14,13 L 30,6 L 46,13 L 30,20 Z" fill="#1e3fb0" />
+                        <path d="M 44,14 V 26" stroke="#22c1a0" stroke-width="2" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="k-tx">
+                    <div class="nm empty" id="cNm">Nama Lengkapmu</div>
+                    <div class="em" id="cEm">email@sekolah.sch.id</div>
+                    <span class="ek" id="cEk"
+                      ><b id="cEi">🎯</b><span id="cEt">Pilih ekskul</span></span
+                    >
+                  </div>
+                </div>
+                <div class="k-chip z3" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                <div class="k-nfc z2" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="k-bot z2">
+                  <div class="bars" id="bars"></div>
+                  <div class="no" id="cNo">EH-26-0000</div>
+                </div>
+                <div class="stamp"><span>TERDAFTAR</span></div>
+              </div>
+              <div class="face back">
+                <div class="fbg"><i class="waves"></i><i class="sw"></i><i class="glare"></i></div>
+                <div class="k-mag"></div>
+                <div class="k-bk z2">
+                  <div class="k-qr" id="qr"></div>
+                  <dl class="k-info">
+                    <dt>Nama</dt>
+                    <dd id="bNm">Nama Lengkapmu</dd>
+                    <dt>Kelas</dt>
+                    <dd id="bKl">Kelas -</dd>
+                    <dt>Ekskul</dt>
+                    <dd id="bEk">Belum memilih ekskul</dd>
+                    <dt>Pembina</dt>
+                    <dd id="bPb">-</dd>
+                    <dt>Jadwal</dt>
+                    <dd id="bJd">-</dd>
+                  </dl>
+                </div>
+                <div class="k-foot2 z2">
+                  <span id="bNo">EH-26-0000</span
+                  ><span>Berlaku 2026/2027 · tunjukkan QR ke pembina untuk absensi</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="k-hint">Ketuk kartu untuk membaliknya · gerakkan kursor atau miringkan HP</p>
+      </section>
+
+      <form class="panel" id="form" novalidate>
+        <h1>Daftar jadi anggota <span class="hl">EkskulHub</span></h1>
+        <p class="sub">Isi tujuh kolom, lalu lihat kartu anggotamu terbentuk langsung.</p>
+        <p class="draft" id="draftNote" hidden>
+          Draf dipulihkan (password tidak disimpan).
+          <button type="button" id="draftClr">Hapus draf</button>
+        </p>
+        <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="7" id="progA">
+          <i id="prog"></i>
+        </div>
+        <p class="pt">
+          <span id="progT">0 dari 7 terisi</span><span id="progN">Mulai dari namamu</span>
+        </p>
+
+        <label for="nama">Nama Lengkap</label>
+        <div class="row" id="rN">
+          <input
+            type="text"
+            id="nama"
+            name="nama"
+            placeholder="Contoh: Rina Kusuma Dewi"
+            autocomplete="name"
+          />
+        </div>
+        <p class="hint" id="hN"></p>
+        <label for="kelas" style="margin-top: 0">Kelas</label>
+        <div class="row" id="rL">
+          <select id="kelas" name="kelas" required>
+            <option value="" disabled selected>Pilih kelas...</option>
+            <option>X</option>
+            <option>XI</option>
+            <option>XII</option>
+          </select>
+        </div>
+        <p class="hint" id="hL"></p>
+        <label for="email" style="margin-top: 0">Email</label>
+        <div class="row" id="rE">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="nama@sman1prestasi.sch.id"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+          />
+        </div>
+        <p class="hint" id="hE"></p>
+        <label for="wa" style="margin-top: 0">Nomor WhatsApp</label>
+        <div class="row" id="rW">
+          <input
+            type="tel"
+            id="wa"
+            name="wa"
+            inputmode="tel"
+            placeholder="0812 3456 7890"
+            autocomplete="tel"
+            maxlength="20"
+          />
+        </div>
+        <p class="hint" id="hW"></p>
+        <label for="pw" style="margin-top: 0">Password</label>
+        <div class="row pw" id="rP">
+          <input
+            type="password"
+            id="pw"
+            name="password"
+            placeholder="Minimal 6 karakter"
+            autocomplete="new-password"
+          /><button type="button" class="peek" id="peek" aria-pressed="false">Lihat</button>
+        </div>
+        <div class="str" id="str"><i></i><i></i><i></i><i></i></div>
+        <p class="hint" id="hP"></p>
+        <label for="pw2" style="margin-top: 0">Konfirmasi Password</label>
+        <div class="row" id="rC">
+          <input
+            type="password"
+            id="pw2"
+            name="konfirmasi"
+            placeholder="Ketik ulang password"
+            autocomplete="new-password"
+          />
+        </div>
+        <p class="hint" id="hC"></p>
+        <label for="ekskul" style="margin-top: 0">Pilihan Ekstrakurikuler</label>
+        <div class="row" id="rK">
+          <select id="ekskul" name="ekskul" required>
+            <option value="" disabled selected>Pilih ekskul favoritmu...</option>
+            <optgroup label="Teknologi &amp; Media">
+              <option data-c="t">Jurnalistik</option>
+              <option data-c="t">FASTER (Robotics &amp; Tech)</option>
+            </optgroup>
+            <optgroup label="Bela Diri &amp; Kepanduan">
+              <option data-c="b">Palang Merah Remaja (PMR)</option>
+              <option data-c="b">Paskibra</option>
+              <option data-c="b">Pencak Silat</option>
+              <option data-c="b">Bantara (Pramuka Penegak)</option>
+            </optgroup>
+            <optgroup label="Seni &amp; Musik">
+              <option data-c="s">Tari (Kreasi &amp; Modern)</option>
+              <option data-c="s">Marching Band (Drumband)</option>
+              <option data-c="s">Robbana (Hadroh &amp; Rebana)</option>
+              <option data-c="s">Padus (Paduan Suara)</option>
+            </optgroup>
+            <optgroup label="Bahasa &amp; Keagamaan">
+              <option data-c="k">Bahasa Jepang (Nihon Club)</option>
+              <option data-c="k">Rohis (Kerohanian Islam)</option>
+            </optgroup>
+            <optgroup label="Olahraga">
+              <option data-c="o">Futsal</option>
+              <option data-c="o">Volly (Bola Voli)</option>
+            </optgroup>
+          </select>
+        </div>
+        <p class="hint" id="hK"></p>
+        <button class="go" id="go" type="submit">Daftar Sekarang</button>
+        <button type="button" class="alt" id="save" hidden>⬇ Simpan kartu (PNG)</button>
+      </form>
+    </div>
+
+    <button class="cb-fab" id="cbFab" aria-label="Buka chat bantuan">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" />
+        <path d="M8.5 11h.01M12 11h.01M15.5 11h.01" stroke-width="3" /></svg
+      ><span class="cb-badge" id="cbBadge">1</span>
+    </button>
+    <div class="cb-tease" id="cbTease" role="status">
+      Hai! 👋 Ada yang bisa kubantu soal ekskul atau formulir?<button
+        type="button"
+        id="cbTx"
+        aria-label="Tutup sapaan"
+      >
+        &times;
+      </button>
+    </div>
+    <section class="cb-panel" id="cbPanel" role="dialog" aria-label="Chat bantuan EkskulHub">
+      <div class="cb-h">
+        <span class="cb-av"
+          ><svg viewBox="0 0 60 70" width="26" height="30" aria-hidden="true">
+            <path
+              d="M 10,66 C 8,40 4,8 30,8 56,8 52,38 50,66 L 44,60 38,66 30,60 22,66 16,60 Z"
+              fill="#e6ecff"
+              stroke="#9aa5bd"
+              stroke-width="2"
+            />
+            <circle cx="23" cy="30" r="4" fill="#0f1a30" />
+            <circle cx="38" cy="30" r="4" fill="#0f1a30" />
+            <path
+              d="M 22,42 Q 30,49 39,42"
+              stroke="#e0607e"
+              stroke-width="3"
+              fill="none"
+              stroke-linecap="round"
+            />
+            <path d="M 12,14 L 30,5 L 48,14 L 30,23 Z" fill="#1e3fb0" /></svg
+        ></span>
+        <div><b>Asisten EkskulHub</b><small id="cbSt">Online · membalas cepat</small></div>
+        <button class="cb-ib" id="cbR" aria-label="Mulai percakapan baru" title="Percakapan baru">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+        <button class="cb-ib" id="cbX" aria-label="Tutup chat">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          >
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="cb-msgs" id="cbMsgs" aria-live="polite"></div>
+      <div class="cb-q" id="cbQ"></div>
+      <form class="cb-f" id="cbF">
+        <input
+          id="cbIn"
+          placeholder="Ketik pesan..."
+          autocomplete="off"
+          maxlength="300"
+          aria-label="Pesan"
+        /><button type="submit" id="cbSend" aria-label="Kirim">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+          </svg>
+        </button>
+      </form>
+      <div class="cb-pw">Asisten EkskulHub</div>
+    </section>
+    <script src="js/app.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/sakura.js"></script>
+    <script src="js/card.js"></script>
+    <script src="js/card-back.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/improvements.js"></script>
+  </body>
+</html>
